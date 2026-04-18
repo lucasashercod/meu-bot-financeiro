@@ -26,15 +26,24 @@ def monitorar():
                 timeout=5
             ).json()
 
-            preco_btc = float(btc["price"])
+            if "price" in btc:
+             preco_btc = float(btc["price"])
+            else:
+             print("Erro ao pegar preço BTC:", btc)
+            time.sleep(10)
+            continue
 
             dolar = requests.get(
                 "https://economia.awesomeapi.com.br/json/last/USD-BRL",
                 timeout=5
             ).json()
 
-            preco_dolar = float(dolar["USDBRL"]["bid"])
-
+            if "USDBRL" in dolar and "bid" in dolar["USDBRL"]:
+             preco_dolar = float(dolar["USDBRL"]["bid"])
+            else:
+             print("Erro ao pegar preço do dólar:", dolar)
+            time.sleep(10)
+            continue
             print(f"BTC: {preco_btc} | Dólar: {preco_dolar}")
 
             if preco_btc >= alvo_btc and not btc_alertado:
@@ -45,7 +54,7 @@ def monitorar():
                 enviar_telegram(f"🚨 Dólar bateu {preco_dolar}")
                 dolar_alertado = True
 
-            time.sleep(10)
+            time.sleep(15)
 
         except Exception as e:
             print(f"Erro: {e}")
