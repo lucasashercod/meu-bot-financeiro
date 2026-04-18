@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import time
 import requests
 
@@ -48,7 +48,6 @@ def monitorar():
             print(f"Erro: {e}")
             time.sleep(10)
 
-=======
 import time
 import requests
 

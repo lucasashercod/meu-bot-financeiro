@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import datetime
 import json
 import requests
