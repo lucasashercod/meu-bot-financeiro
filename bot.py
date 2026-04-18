@@ -62,12 +62,12 @@ def pegar_preco_btc():
 def pegar_preco_dolar():
     try:
         dolar = requests.get(
-            "https://economia.awesomeapi.com.br/json/last/USD-BRL",
+            "https://open.er-api.com/v6/latest/USD",
             timeout=5
         ).json()
 
-        if "USDBRL" in dolar and "bid" in dolar["USDBRL"]:
-            return float(dolar["USDBRL"]["bid"])
+        if "rates" in dolar and "BRL" in dolar["rates"]:
+            return float(dolar["rates"]["BRL"])
         else:
             print("Erro Dólar:", dolar)
 
@@ -107,7 +107,7 @@ def monitorar():
                 enviar_telegram(f"🚨 Dólar bateu {preco_dolar}")
                 dolar_alertado = True
 
-            time.sleep(60)  # 🔥 importante pra não tomar rate limit
+            time.sleep(60)  
 
         except Exception as e:
             print("Erro geral:", e)
